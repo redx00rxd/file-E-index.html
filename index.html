@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساب الوقت المتبقي حتي رمضان</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: black; /* خلفية سوداء بالكامل */
+            color: white;
+            overflow: hidden; /* لمنع ظهور شريط التمرير */
+        }
+        h1 {
+            color: blue;
+        }
+        #countdown {
+            font-size: 2em;
+            margin: 20px 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .time-unit {
+            margin: 10px 0;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 2em; /* زيادة حجم كلمة تطوير */
+            color: blue;
+            text-align: left;
+            margin-left: 20px;
+        }
+        /* إضافة هلال متحرك */
+        .crescent {
+            position: absolute;
+            bottom: 30%; /* رفع الهلال أكثر */
+            right: 10%; /* وضع الهلال في اليمين */
+            width: 100px; /* حجم الهلال */
+            height: 100px; /* حجم الهلال */
+            background-color: blue; /* لون الهلال الأزرق */
+            border-radius: 50%; /* شكل دائري */
+            animation: moveCrescent 10s linear infinite;
+        }
+        .crescent:before {
+            content: '';
+            position: absolute;
+            width: 100px; /* حجم الهلال */
+            height: 100px; /* حجم الهلال */
+            background-color: black; /* لون الخلفية للهلال */
+            border-radius: 50%; /* شكل دائري */
+            top: 0;
+            left: 30px; /* تحريك الهلال */
+        }
+        @keyframes moveCrescent {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h1>الوقت المتبقي حتي رمضان ♥ 2025</h1>
+    <div id="countdown">
+        <div class="time-unit" id="months"></div>
+        <div class="time-unit" id="weeks"></div>
+        <div class="time-unit" id="days"></div>
+        <div class="time-unit" id="hours"></div>
+        <div class="time-unit" id="minutes"></div>
+        <div class="time-unit" id="seconds"></div>
+    </div>
+    <div class="footer">  RedX : تطوير </div>
+    <div class="crescent"></div>
+    <script>
+        const ramadanStartDate = new Date('2025-03-01T00:00:00');
+
+        function updateCountdown() {
+            const now = new Date();
+            const timeDifference = ramadanStartDate - now;
+
+            if (timeDifference < 0) {
+                document.getElementById('countdown').innerHTML = "<div>رمضان قد بدأ!</div>";
+                return;
+            }
+
+            const months = Math.floor((timeDifference) / (1000 * 60 * 60 * 24 * 30));
+            const weeks = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            document.getElementById('months').innerHTML = `${months} : أشهر`;
+            document.getElementById('weeks').innerHTML = `${weeks} : أسابيع`;
+            document.getElementById('days').innerHTML = `${days} : أيام`;
+            document.getElementById('hours').innerHTML = `${hours} : ساعات`;
+            document.getElementById('minutes').innerHTML = `${minutes} : دقائق`;
+            document.getElementById('seconds').innerHTML = `${seconds} : ثواني`;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
